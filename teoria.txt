@@ -1,0 +1,8 @@
+Web service -> serviços que fornece dados nos formatos Json ou Xml
+EndPoint -> é o endereço de um webservice ( cada endPoint é uma URL diferente)
+API -> conjunto de webservices/endpoints
+
+API SOAP -> Xml
+
+Api rest -> Json
+Api restful -> Json, e tem regrinhas de uso.
