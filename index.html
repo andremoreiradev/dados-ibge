@@ -12,20 +12,18 @@
         <hr>
 
         <section class="card card-body">
-            <div id="carregando" style="visibility: hidden" class="spinner-border" role="status">
-                <span class="visually-hidden">loading...</span>
-
-
-            </div>
+            <div id="carregando" style="visibility: hidden;" class="spinner-grow" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
 
             <form action="">
                 <label for="regiao">Região</label>
-                <select onchange = "buscarEstados()" class="form-select mb-3" id="regiao">
+                <select onchange="buscarEstados()" class="form-select mb-3" id="regiao">
                     <option value="" selected> -- Selecione -- </option>
                 </select>
 
                 <label for="estado">Estado</label>
-                <select onchange ="buscarCidades()" class="form-select mb-3" id="estado">
+                <select onchange="buscarCidades()" class="form-select mb-3" id="estado">
                     <option value="" selected> -- Selecione -- </option>
                 </select>
 

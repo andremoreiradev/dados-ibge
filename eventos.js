@@ -1,61 +1,51 @@
-
 fetch('https://servicodados.ibge.gov.br/api/v1/localidades/regioes') //promise
-.then(resposta => resposta.json()) 
-.then(conteudo => {
-    /* forma 1 - arrow function*/
-    conteudo.map((valor) => {
-    regiao.innerHTML += `<option value="${valor.id}">${valor.nome}</option>`
- });
-});
+    .then(resposta => resposta.json()) //então extrai o conteudo
+    .then(conteudo => {
+        /* FORMA 1 - Arrow Function */
+        conteudo.map((valor) => {
+            regiao.innerHTML += `<option value="${valor.id}">${valor.nome}</option>`
+        });
+    }); //então usa o conteudo
 
-function buscarEstados(){
+function buscarEstados() {
+    //resetando o select
+    estado.innerHTML = '<option selected>-- Selecione --</option>';
 
-    estado.innerHTML = '<option selected>-- Selecione --</option>'
-       
- fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/regioes/${regiao.value}/estados`) //promise
-.then(resposta => resposta.json()) 
-.then(conteudo => {
-    conteudo.map((valor) => {
-    estado.innerHTML += `<option value="${valor.id}">${valor.nome}</option>`
- });
-});
-
-}
-
-function buscarCidades() {
-
-
-        cidade.innerHTML = '<option selected>-- Selecione --</option>'
-        carregando.style.visibility ='visible';
-
-    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado.value}/municipios`) //promise
+    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/regioes/${regiao.value}/estados?orderBy=nome`) 
     .then(resposta => resposta.json()) 
     .then(conteudo => {
-        carregando.style.visibility ='hidden';
         conteudo.map((valor) => {
-        cidade.innerHTML += `<option>${valor.nome}</option>`
-     });
-
-    });
-
+            estado.innerHTML += `<option value="${valor.id}">${valor.nome}</option>`
+        });
+    }); 
 }
 
 
-//https://servicodados.ibge.gov.br/api/v1/localidades/regioes/{macrorregiao}/municipios
+function buscarCidades() {
+    cidade.innerHTML = '<option selected>-- Aguarde --</option>';
+    carregando.style.visibility = 'visible'; //vai aparecer o loading
 
-/* forma 1 - arrow function*/
-// regioes.map(valor) => {
-// regiao.innerHtml += `<options>${valor}</options>`
+    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estado.value}/municipios`)
+        .then(resposta => resposta.json())
+        .then(conteudo => {
+            carregando.style.visibility = 'hidden'; //vai esconder o loading
+            cidade.innerHTML = '<option selected>-- Selecione --</option>';
+
+            conteudo.map(cada => {
+                cidade.innerHTML += `<option>${cada.nome}</option>`;
+            })
+        });
+}
+
+
+/* FORMA 2 - Function anonima */
+// regioes.map(function(valor) {
+//     regiao.innerHTML += `<option>${valor}</option>`
 // });
 
-/* forma 2 - function anonima*/
-//regiao.map(function(valor) {
-// regiao.innerHtml += `<options>${valor}</options>`   
-
-/* forma 3 - function externa*/
+/* FORMA 3 - function externa */
 // function addOption(valor) {
-//   regiao.innerHTML += `<option>${valor.nome}</option>`;
+//     regiao.innerHTML += `<option>${valor.nome}</option>`; 
 // }
 
-//regioes.map(addOption)
-
+// regioes.map(addOption);
